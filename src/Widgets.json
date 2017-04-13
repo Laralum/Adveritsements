@@ -1,0 +1,10 @@
+[
+    {
+        "view": "laralum_advertisements::widgets.clicks",
+        "permission": "laralum::advertisements.statistics"
+    },
+    {
+        "view": "laralum_advertisements::widgets.views",
+        "permission": "laralum::advertisements.statistics"
+    }
+]
