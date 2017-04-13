@@ -9,7 +9,7 @@ class View extends Model
     public $table = 'laralum_advertisements_views';
     public $fillable = [
         'advertisement_id', 'browser', 'browser_version',
-        'os', 'os_version', 'language', 'ip', 'click'
+        'os', 'os_version', 'language', 'ip', 'click',
     ];
 
     /**
