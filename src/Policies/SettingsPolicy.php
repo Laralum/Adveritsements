@@ -2,9 +2,8 @@
 
 namespace Laralum\Advertisements\Policies;
 
-use Laralum\Users\Models\User;
-use Laralum\Advertisements\Models\Advertisement;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Laralum\Users\Models\User;
 
 class SettingsPolicy
 {
@@ -26,12 +25,12 @@ class SettingsPolicy
     /**
      * Determine if the current user can update advertisements settings.
      *
-     * @param  mixed $user
+     * @param mixed $user
+     *
      * @return bool
      */
     public function update($user)
     {
         return User::findOrFail($user->id)->hasPermission('laralum::advertisements.settings.update');
     }
-
 }
