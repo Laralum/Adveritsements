@@ -2,14 +2,12 @@
 
 namespace Laralum\Advertisements;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Support\ServiceProvider;
 use Laralum\Advertisements\Models\Advertisement;
-use Laralum\Advertisements\Policies\AdvertisementPolicy;
 use Laralum\Advertisements\Models\Settings;
+use Laralum\Advertisements\Policies\AdvertisementPolicy;
 use Laralum\Advertisements\Policies\SettingsPolicy;
-
 use Laralum\Permissions\PermissionsChecker;
 
 class AdvertisementsServiceProvider extends ServiceProvider
@@ -21,7 +19,7 @@ class AdvertisementsServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Advertisement::class => AdvertisementPolicy::class,
-        Settings::class => SettingsPolicy::class,
+        Settings::class      => SettingsPolicy::class,
     ];
 
     /**
@@ -33,42 +31,42 @@ class AdvertisementsServiceProvider extends ServiceProvider
         [
             'name' => 'Advertisements Access',
             'slug' => 'laralum::advertisements.access',
-            'desc' => "Grants access to laralum/advertisements module",
+            'desc' => 'Grants access to laralum/advertisements module',
         ],
         [
             'name' => 'Create Advertisements',
             'slug' => 'laralum::advertisements.create',
-            'desc' => "Allows creating advertisements",
+            'desc' => 'Allows creating advertisements',
         ],
         [
             'name' => 'Update Advertisements',
             'slug' => 'laralum::advertisements.update',
-            'desc' => "Allows updating advertisements",
+            'desc' => 'Allows updating advertisements',
         ],
         [
             'name' => 'View Advertisements',
             'slug' => 'laralum::advertisements.view',
-            'desc' => "Allows previewing advertisements",
+            'desc' => 'Allows previewing advertisements',
         ],
         [
             'name' => 'Advertisements Statistics',
             'slug' => 'laralum::advertisements.statistics',
-            'desc' => "Allows viewing the advertisements statistics",
+            'desc' => 'Allows viewing the advertisements statistics',
         ],
         [
             'name' => 'Advertisements Specific Statistics',
             'slug' => 'laralum::advertisements.specific_statistics',
-            'desc' => "Allows viewing specific advertisement statistics",
+            'desc' => 'Allows viewing specific advertisement statistics',
         ],
         [
             'name' => 'Advertisements Settings',
             'slug' => 'laralum::advertisements.settings.update',
-            'desc' => "Allows updating the advertisements settings",
+            'desc' => 'Allows updating the advertisements settings',
         ],
         [
             'name' => 'Delete Advertisements',
             'slug' => 'laralum::advertisements.delete',
-            'desc' => "Allows delete advertisements",
+            'desc' => 'Allows delete advertisements',
         ],
     ];
 
@@ -93,11 +91,10 @@ class AdvertisementsServiceProvider extends ServiceProvider
 
         // Make sure the permissions are OK
         PermissionsChecker::check($this->permissions);
-
     }
 
     /**
-     * I cheated this comes from the AuthServiceProvider extended by the App\Providers\AuthServiceProvider
+     * I cheated this comes from the AuthServiceProvider extended by the App\Providers\AuthServiceProvider.
      *
      * Register the application's policies.
      *

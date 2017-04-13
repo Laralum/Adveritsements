@@ -2,7 +2,6 @@
 
 namespace Laralum\Advertisements;
 
-use Laralum\Advertisements\Advertisement;
 use Illuminate\Support\Facades\Facade;
 
 class Show extends Facade

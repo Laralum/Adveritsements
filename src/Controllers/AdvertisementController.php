@@ -2,11 +2,11 @@
 
 namespace Laralum\Advertisements\Controllers;
 
-use Laralum\Advertisements\Models\Advertisement;
-use Laralum\Advertisements\Models\View;
-use Laralum\Advertisements\Models\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Laralum\Advertisements\Models\Advertisement;
+use Laralum\Advertisements\Models\Settings;
+use Laralum\Advertisements\Models\View;
 
 class AdvertisementController extends Controller
 {
@@ -19,7 +19,7 @@ class AdvertisementController extends Controller
     {
         return view('laralum_advertisements::index', [
             'settings' => Settings::first(),
-            'ads' => Advertisement::all()
+            'ads'      => Advertisement::all(),
         ]);
     }
 
@@ -38,7 +38,8 @@ class AdvertisementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,7 +49,7 @@ class AdvertisementController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'slug' => 'required|unique:laralum_advertisements',
-            'code' => 'required'
+            'code' => 'required',
         ]);
 
         $ad = Advertisement::create([
@@ -63,7 +64,8 @@ class AdvertisementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Advertisement $advertisement)
@@ -76,7 +78,8 @@ class AdvertisementController extends Controller
     /**
      * Display the advertisements statistics.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function statistics()
@@ -84,32 +87,33 @@ class AdvertisementController extends Controller
         $this->authorize('statistics', Advertisement::class);
 
         $statistics = [
-            'allViews' => View::all(),
-            'allUniqueViews' => View::where('click', 0)->get()->unique('ip')->merge(View::where('click', 1)->get()->unique('ip')),
-            'views' => View::where('click', 0)->get(),
-            'uniqueViews' => View::where('click', 0)->get()->unique('ip'),
-            'totalViews' => View::where('click', 0)->get()->count(),
-            'totalUniqueViews' => View::where('click', 0)->get()->unique('ip')->count(),
-            'clicks' => View::where('click', 1)->get(),
-            'uniqueClicks' => View::where('click', 1)->get()->unique('ip'),
-            'totalClicks' => View::where('click', 1)->get()->count(),
+            'allViews'          => View::all(),
+            'allUniqueViews'    => View::where('click', 0)->get()->unique('ip')->merge(View::where('click', 1)->get()->unique('ip')),
+            'views'             => View::where('click', 0)->get(),
+            'uniqueViews'       => View::where('click', 0)->get()->unique('ip'),
+            'totalViews'        => View::where('click', 0)->get()->count(),
+            'totalUniqueViews'  => View::where('click', 0)->get()->unique('ip')->count(),
+            'clicks'            => View::where('click', 1)->get(),
+            'uniqueClicks'      => View::where('click', 1)->get()->unique('ip'),
+            'totalClicks'       => View::where('click', 1)->get()->count(),
             'totalUniqueClicks' => View::where('click', 1)->get()->unique('ip')->count(),
-            'mostUsedBrowser' => $this->mostUsedBrowser(),
-            'mostUsedOs' => $this->mostUsedOs(),
-            'mostUsedLanguage' => $this->mostUsedLanguage(true),
+            'mostUsedBrowser'   => $this->mostUsedBrowser(),
+            'mostUsedOs'        => $this->mostUsedOs(),
+            'mostUsedLanguage'  => $this->mostUsedLanguage(true),
         ];
 
         return view('laralum_advertisements::statistics', [
             'statistics' => $statistics,
-            'title' => __('laralum_advertisements::general.ads_statistics'),
-            'subtitle' => __('laralum_advertisements::general.ads_statistics_desc'),
+            'title'      => __('laralum_advertisements::general.ads_statistics'),
+            'subtitle'   => __('laralum_advertisements::general.ads_statistics_desc'),
         ]);
     }
 
     /**
      * Display the specified advertisement statistics.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function specificStatistics(Advertisement $advertisement)
@@ -117,28 +121,28 @@ class AdvertisementController extends Controller
         $this->authorize('specific_statistics', Advertisement::class);
 
         $statistics = [
-            'allViews' => $advertisement->views,
-            'allUniqueViews' => $advertisement->views->unique('ip'),
-            'views' => $advertisement->views->where('click', 0),
-            'uniqueViews' => $advertisement->uniqueViews(),
-            'totalViews' => $advertisement->totalViews(),
-            'totalUniqueViews' => $advertisement->totalUniqueViews(),
-            'clicks' => $advertisement->clicks(),
-            'uniqueClicks' => $advertisement->uniqueClicks(),
-            'totalClicks' => $advertisement->totalClicks(),
+            'allViews'          => $advertisement->views,
+            'allUniqueViews'    => $advertisement->views->unique('ip'),
+            'views'             => $advertisement->views->where('click', 0),
+            'uniqueViews'       => $advertisement->uniqueViews(),
+            'totalViews'        => $advertisement->totalViews(),
+            'totalUniqueViews'  => $advertisement->totalUniqueViews(),
+            'clicks'            => $advertisement->clicks(),
+            'uniqueClicks'      => $advertisement->uniqueClicks(),
+            'totalClicks'       => $advertisement->totalClicks(),
             'totalUniqueClicks' => $advertisement->totalUniqueClicks(),
-            'mostUsedBrowser' => $advertisement->mostUsedBrowser(),
-            'mostUsedOs' => $advertisement->mostUsedOs(),
-            'mostUsedLanguage' => $advertisement->mostUsedLanguage(true),
+            'mostUsedBrowser'   => $advertisement->mostUsedBrowser(),
+            'mostUsedOs'        => $advertisement->mostUsedOs(),
+            'mostUsedLanguage'  => $advertisement->mostUsedLanguage(true),
         ];
 
         return view('laralum_advertisements::statistics', [
             'statistics' => $statistics,
-            'title' => __('laralum_advertisements::general.ad_statistics'),
-            'subtitle' => __('laralum_advertisements::general.ad_statistics_desc', [
-                'id' => $advertisement->id,
+            'title'      => __('laralum_advertisements::general.ad_statistics'),
+            'subtitle'   => __('laralum_advertisements::general.ad_statistics_desc', [
+                'id'      => $advertisement->id,
                 'created' => $advertisement->created_at->diffForHumans(),
-                'edited' => $advertisement->updated_at->diffForHumans(),
+                'edited'  => $advertisement->updated_at->diffForHumans(),
             ]),
         ]);
     }
@@ -146,7 +150,8 @@ class AdvertisementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Advertisement $advertisement)
@@ -159,8 +164,9 @@ class AdvertisementController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Illuminate\Http\Request                     $request
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Advertisement $advertisement)
@@ -188,13 +194,13 @@ class AdvertisementController extends Controller
 
         $this->validate($request, [
             'anti_ad_block_method' => 'required_with:anti_ad_block',
-            'content' => 'required_with:anti_ad_block',
+            'content'              => 'required_with:anti_ad_block',
         ]);
 
         Settings::first()->update([
-            'anti_ad_block' => $request->input('anti_ad_block') ? true : false,
+            'anti_ad_block'        => $request->input('anti_ad_block') ? true : false,
             'anti_ad_block_method' => $request->input('anti_ad_block_method'),
-            'content' => $request->input('content'),
+            'content'              => $request->input('content'),
         ]);
 
         return redirect()->route('laralum::settings.index', ['p' => 'Advertisements'])->with('success', __('laralum_advertisements::general.ad_settings_updated'));
@@ -203,7 +209,8 @@ class AdvertisementController extends Controller
     /**
      * Adds a click to the specified advertisement.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function click(Advertisement $advertisement)
@@ -216,7 +223,8 @@ class AdvertisementController extends Controller
     /**
      * Displays a view to confirm delete.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function confirmDelete(Advertisement $advertisement)
@@ -232,7 +240,8 @@ class AdvertisementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Laralum\Advertisements\Models\Advertisement  $advertisement
+     * @param \Laralum\Advertisements\Models\Advertisement $advertisement
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Advertisement $advertisement)
@@ -253,8 +262,10 @@ class AdvertisementController extends Controller
         foreach (View::where('click', 0)->get() as $view) {
             array_key_exists($view->browser, $results) ? $results[$view->browser]++ : $results[$view->browser] = 1;
         }
+
         return $results;
     }
+
     /**
      * Returns the link most used browser.
      */
@@ -268,6 +279,7 @@ class AdvertisementController extends Controller
                 $max_browser = $browser;
             }
         }
+
         return $max_browser;
     }
 
@@ -280,8 +292,10 @@ class AdvertisementController extends Controller
         foreach (View::where('click', 0)->get() as $view) {
             array_key_exists($view->os, $results) ? $results[$view->os]++ : $results[$view->os] = 1;
         }
+
         return $results;
     }
+
     /**
      * Returns the link most used OS (Operating System).
      */
@@ -295,8 +309,10 @@ class AdvertisementController extends Controller
                 $max_os = $os;
             }
         }
+
         return $max_os;
     }
+
     /**
      * Returns the the used languages.
      *
@@ -315,13 +331,16 @@ class AdvertisementController extends Controller
                         return explode(' ', str_replace(';', '', $country['name']))[0];
                     }
                 }
+
                 return $key;
             })->map(function ($item, $key) {
                 return count($item);
             });
         }
+
         return $collection->toArray();
     }
+
     /**
      * Returns the link most used OS (Operating System).
      *
@@ -340,6 +359,7 @@ class AdvertisementController extends Controller
                         }
                     }
                 }
+
                 return $lang;
             }
         }

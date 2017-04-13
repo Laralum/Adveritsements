@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Laralum\Advertisements\Models\Settings;
 
 class CreateAdvertisementsSettings extends Migration
@@ -23,11 +23,10 @@ class CreateAdvertisementsSettings extends Migration
         });
 
         Settings::create([
-            'anti_ad_block' => true,
+            'anti_ad_block'        => true,
             'anti_ad_block_method' => 'alert',
-            'content' => "Please disable your ad blocker",
+            'content'              => 'Please disable your ad blocker',
         ]);
-
     }
 
     /**

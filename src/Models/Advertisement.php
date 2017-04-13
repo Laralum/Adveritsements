@@ -10,15 +10,15 @@ class Advertisement extends Model
     public $table = 'laralum_advertisements';
     public $fillable = ['name', 'slug', 'code'];
 
-    /**
-     * Returns the advertisment views.
-     */
+     /**
+      * Returns the advertisment views.
+      */
      public function views()
      {
          return $this->hasMany('Laralum\Advertisements\Models\View');
      }
 
-     /**
+    /**
      * Returns the link unique views.
      */
     public function uniqueViews()
@@ -26,17 +26,17 @@ class Advertisement extends Model
         return $this->views->where('click', 0)->unique('ip');
     }
 
-    /**
-     * Returns the advertisment clicks.
-     */
+     /**
+      * Returns the advertisment clicks.
+      */
      public function clicks()
      {
          return $this->views->where('click', 1);
      }
 
-     /**
-      * Returns the advertisment unique clicks.
-      */
+      /**
+       * Returns the advertisment unique clicks.
+       */
       public function uniqueClicks()
       {
           return $this->views->where('click', 1)->unique('ip');
@@ -58,17 +58,17 @@ class Advertisement extends Model
         return count($this->views->where('click', 0));
     }
 
-    /**
-     * Returns the advertisment clicks.
-     */
+     /**
+      * Returns the advertisment clicks.
+      */
      public function totalClicks()
      {
          return $this->views->where('click', 1)->count();
      }
 
-     /**
-      * Returns the advertisment clicks.
-      */
+      /**
+       * Returns the advertisment clicks.
+       */
       public function totalUniqueClicks()
       {
           return $this->views->where('click', 1)->unique('ip')->count();
@@ -83,8 +83,10 @@ class Advertisement extends Model
         foreach ($this->views as $view) {
             array_key_exists($view->browser, $results) ? $results[$view->browser]++ : $results[$view->browser] = 1;
         }
+
         return $results;
     }
+
     /**
      * Returns the link most used browser.
      */
@@ -98,6 +100,7 @@ class Advertisement extends Model
                 $max_browser = $browser;
             }
         }
+
         return $max_browser;
     }
 
@@ -110,8 +113,10 @@ class Advertisement extends Model
         foreach ($this->views as $view) {
             array_key_exists($view->os, $results) ? $results[$view->os]++ : $results[$view->os] = 1;
         }
+
         return $results;
     }
+
     /**
      * Returns the link most used OS (Operating System).
      */
@@ -125,8 +130,10 @@ class Advertisement extends Model
                 $max_os = $os;
             }
         }
+
         return $max_os;
     }
+
     /**
      * Returns the the used languages.
      *
@@ -145,13 +152,16 @@ class Advertisement extends Model
                         return explode(' ', str_replace(';', '', $country['name']))[0];
                     }
                 }
+
                 return $key;
             })->map(function ($item, $key) {
                 return count($item);
             });
         }
+
         return $collection->toArray();
     }
+
     /**
      * Returns the link most used OS (Operating System).
      *
@@ -170,60 +180,61 @@ class Advertisement extends Model
                         }
                     }
                 }
+
                 return $lang;
             }
         }
     }
 
-    /**
-     * Adds a view to the advertisment.
-     */
+     /**
+      * Adds a view to the advertisment.
+      */
      public function addView()
      {
          return View::create([
              'advertisement_id' => $this->id,
-             'browser' => Identify::browser()->getName(),
-             'browser_version' => Identify::browser()->getVersion(),
-             'os' => Identify::os()->getName(),
-             'os_version' => Identify::os()->getVersion(),
-             'language' => Identify::lang()->getLanguage(),
-             'ip' => $this->getIP(),
-             'click' => false,
+             'browser'          => Identify::browser()->getName(),
+             'browser_version'  => Identify::browser()->getVersion(),
+             'os'               => Identify::os()->getName(),
+             'os_version'       => Identify::os()->getVersion(),
+             'language'         => Identify::lang()->getLanguage(),
+             'ip'               => $this->getIP(),
+             'click'            => false,
          ]);
      }
 
-     /**
-      * Adds a click to the advertisment.
-      */
+      /**
+       * Adds a click to the advertisment.
+       */
       public function addClick()
       {
           return View::create([
               'advertisement_id' => $this->id,
-              'browser' => Identify::browser()->getName(),
-              'browser_version' => Identify::browser()->getVersion(),
-              'os' => Identify::os()->getName(),
-              'os_version' => Identify::os()->getVersion(),
-              'language' => Identify::lang()->getLanguage(),
-              'ip' => $this->getIP(),
-              'click' => true,
+              'browser'          => Identify::browser()->getName(),
+              'browser_version'  => Identify::browser()->getVersion(),
+              'os'               => Identify::os()->getName(),
+              'os_version'       => Identify::os()->getVersion(),
+              'language'         => Identify::lang()->getLanguage(),
+              'ip'               => $this->getIP(),
+              'click'            => true,
           ]);
       }
 
-     /**
+    /**
      * Gets the real client IP.
      */
     public function getIP()
     {
-        if (! empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {   //check ip from cloudflare
+        if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {   //check ip from cloudflare
           $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-        } elseif (! empty($_SERVER['HTTP_CLIENT_IP'])) {   //check ip from share internet
+        } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {   //check ip from share internet
           $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   //to check ip is pass from proxy
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   //to check ip is pass from proxy
           $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
+
         return $ip;
     }
-
 }
