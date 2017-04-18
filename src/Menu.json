@@ -1,14 +1,17 @@
 {
     "items": [
         {
+            "permission" : "laralum::advertisements.access",
             "trans": "laralum_advertisements::general.advertisement_list",
             "route": "laralum::advertisements.index"
         },
         {
+            "permission" : "laralum::advertisements.create",
             "trans": "laralum_advertisements::general.create_advertisement",
             "route": "laralum::advertisements.create"
         },
         {
+            "permission" : "laralum::advertisements.statistics",
             "trans": "laralum_advertisements::general.statistics",
             "route": "laralum::advertisements.statistics"
         }
