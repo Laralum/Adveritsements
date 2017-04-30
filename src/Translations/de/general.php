@@ -73,4 +73,7 @@ return [
     'ad_updated'            => 'Die Anzeige hat aktualisiert!',
     'ad_settings_updated'   => 'Anzeigeneinstellungen aktualisiert!',
     'ad_deleted'            => 'Die Anzeige wurde gelöscht!',
+    'unauthorized_action'   => 'Unbefugte Handlung',
+    'unauthorized_desc'     => 'Sie können die anzeigen nicht aktualisieren.',
+    'contact_webmaster'     => 'Wenn du denkst, du solltest es in der Lage sein, es zu aktualisieren, bitte wenden Sie sich an webmaster.',
 ];

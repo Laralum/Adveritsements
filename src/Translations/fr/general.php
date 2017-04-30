@@ -73,4 +73,8 @@ return [
     'ad_updated'            => 'La publicité a été mise à jour!',
     'ad_settings_updated'   => 'Les paramètres des annonces sont mis à jour!',
     'ad_deleted'            => 'La publicité a été supprimée!',
+
+    'unauthorized_action'       => 'Action non autorisée',
+    'unauthorized_desc'         => "Vous n'êtes pas autorisé à mettre à jour les paramètres des annonces.",
+    'contact_webmaster'         => 'Si vous pensez pouvoir le mettre à jour, contactez le webmaster.',
 ];

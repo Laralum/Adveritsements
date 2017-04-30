@@ -73,4 +73,8 @@ return [
     'ad_updated'            => 'La pubblicità ha aggiornato!',
     'ad_settings_updated'   => 'Le impostazioni degli annunci sono aggiornate!',
     'ad_deleted'            => "L'annuncio è stato cancellato!",
+
+    'unauthorized_action'   => 'Azione non autorizzata',
+    'unauthorized_desc'     => 'Non puoi aggiornare le impostazioni delle annunci.',
+    'contact_webmaster'     => 'Se pensi di potervi aggiornare, contatta il webmaster.',
 ];

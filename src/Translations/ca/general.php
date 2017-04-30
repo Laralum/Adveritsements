@@ -73,4 +73,8 @@ return [
     'ad_updated'            => "L'anunci s'ha actualitzat!",
     'ad_settings_updated'   => "Configuració d'anuncis actualitzada!",
     'ad_deleted'            => "L'anunci ha estat eliminat!",
+    
+    'unauthorized_action'       => 'Acció no autoritzada',
+    'unauthorized_desc'         => "No està autoritzat per actualitzar la configuració d'anuncis.",
+    'contact_webmaster'         => "Si vostè creu que hauria de ser capaç d'actualitzar, si us plau, poseu-vos en contacte amb el webmaster.",
 ];

@@ -2,9 +2,9 @@
     $settings = Laralum\Advertisements\Models\Settings::first();
 @endphp
 <div uk-grid>
-    <div class="uk-width-1-1@s uk-width-1-5@l"></div>
-    <div class="uk-width-1-1@s uk-width-3-5@l">
-        @if (\Laralum\Users\Models\User::findOrFail(Auth::id())->can('update', \Laralum\Advertisements\Models\Settings::class))
+    @can('update', Laralum\Advertisements\Models\Settings::class)
+        <div class="uk-width-1-1@s uk-width-1-5@l"></div>
+        <div class="uk-width-1-1@s uk-width-3-5@l">
             <form class="uk-form-horizontal" method="POST" action="{{ route('laralum::advertisements.settings.update') }}">
                 {{ csrf_field() }}
                 <fieldset class="uk-fieldset">
@@ -45,15 +45,28 @@
 
                 </fieldset>
             </form>
-        @else
-            <div class="uk-alert-danger uk-text-center" uk-alert>
-                <p>
-                    @lang('laralum_advertisements::general.not_allowed_settings')
-                </p>
+        </div>
+        <div class="uk-width-1-1@s uk-width-1-5@l"></div>
+    @else
+        <div class="uk-width-1-1">
+            <div class="content-background">
+                <div class="uk-section uk-section-small uk-section-default">
+                    <div class="uk-container uk-text-center">
+                        <h3>
+                            <span class="ion-minus-circled"></span>
+                            @lang('laralum_advertisements::general.unauthorized_action')
+                        </h3>
+                        <p>
+                            @lang('laralum_advertisements::general.unauthorized_desc')
+                        </p>
+                        <p class="uk-text-meta">
+                            @lang('laralum_advertisements::general.contact_webmaster')
+                        </p>
+                    </div>
+                </div>
             </div>
-        @endif
-    </div>
-    <div class="uk-width-1-1@s uk-width-1-5@l"></div>
+        </div>
+    @endcan
 </div>
 
 <script>

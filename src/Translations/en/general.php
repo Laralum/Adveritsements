@@ -81,4 +81,8 @@ return [
     'ad_settings_updated'   => 'Advertisements settings updated!',
     'ad_deleted'            => 'The advertisement has been deleted!',
 
+    'unauthorized_action'   => 'Unauthorized Action',
+    'unauthorized_desc'     => "You're not allowed to update the advertisements settings.",
+    'contact_webmaster'     => 'If you think you should be able to update it, please contact webmaster.',
+
 ];
